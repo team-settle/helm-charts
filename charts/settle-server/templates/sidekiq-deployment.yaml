@@ -1,3 +1,4 @@
+{{- if .Values.sidekiq.enabled }}
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -20,4 +21,4 @@ spec:
         envFrom:
           - configMapRef:
               name: {{ .Values.sidekiq.configMap }}
-
+{{- end }}
