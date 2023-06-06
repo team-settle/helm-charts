@@ -56,13 +56,15 @@ spec:
               valueFrom:
                 fieldRef:
                   fieldPath: metadata.labels['tags.datadoghq.com/version']
+          {{- if .Values.startupProbe.enabled }}
           startupProbe:
             httpGet:
-              path: /admins/sign_in
+              path: {{ .Values.startupProbe.path }}
               port: {{ .Values.service.targetPort }}
-            initialDelaySeconds: 45
-            periodSeconds: 10
-            failureThreshold: 10
+            initialDelaySeconds: {{ .Values.startupProbe.initialDelaySeconds }}
+            periodSeconds: {{ .Values.startupProbe.periodSeconds }}
+            failureThreshold: {{ .Values.startupProbe.failureThreshold }}
+          {{- end }}
           resources:
             {{- toYaml .Values.resources | nindent 12 }}
       {{- with .Values.nodeSelector }}
