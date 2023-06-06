@@ -74,7 +74,7 @@ resources: {}
 autoscaling:
   enabled: false
   minReplicas: 1
-  maxReplicas: 100
+  maxReplicas: 20
   targetCPUUtilizationPercentage: 80
   # targetMemoryUtilizationPercentage: 80
 
@@ -87,3 +87,11 @@ affinity: {}
 sidekiq:
   enabled: false
   replicaCount: 1
+
+# https://kubernetes.io/docs/tasks/configure-pod-container/configure-liveness-readiness-startup-probes/#define-startup-probes
+startupProbe:
+  enabled: false
+  path: /admins/sign_in
+  initialDelaySeconds: 45
+  periodSeconds: 10
+  failureThreshold: 10
