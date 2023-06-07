@@ -89,9 +89,22 @@ sidekiq:
   replicaCount: 1
 
 # https://kubernetes.io/docs/tasks/configure-pod-container/configure-liveness-readiness-startup-probes/#define-startup-probes
-startupProbe:
-  enabled: false
-  path: /admins/sign_in
-  initialDelaySeconds: 45
-  periodSeconds: 10
-  failureThreshold: 10
+startupProbe: {}
+  # httpGet:
+  #   path: /admins/sign_in
+  #   port: 8080
+  # initialDelaySeconds: 45
+  # periodSeconds: 10
+  # failureThreshold: 10
+
+# https://kubernetes.io/docs/tasks/configure-pod-container/attach-handler-lifecycle-event/
+lifecycle: {}
+  # postStart:
+  #   exec:
+  #     command:
+  #       - "/bin/sh"
+  #       - "-c"
+  #       - >
+  #         bin/rails db:migrate && if ! bundle exec rails runner 'exit(Admin.any?)'; then
+  #           bundle exec rails db:seed;
+  #         fi
