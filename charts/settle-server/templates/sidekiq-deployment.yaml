@@ -18,7 +18,7 @@ spec:
         image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
         imagePullPolicy: Always
         command: ["bundle", "exec", "sidekiq"]
-        envFrom:
-          - configMapRef:
-              name: {{ .Values.sidekiq.configMap }}
+        # envFrom:
+        #   - configMapRef:
+        #       name: {{ .Values.sidekiq.configMap }}
 {{- end }}
