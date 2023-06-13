@@ -2,6 +2,14 @@ apiVersion: v1
 entries:
   settle-server:
   - apiVersion: v2
+    created: "2023-06-13T23:18:15.375827911Z"
+    description: A Helm chart for Kubernetes
+    digest: 24af6562370a4c3dfe12cb2e8c698a99e70c29ecf0c31606a929aebeecc387b8
+    name: settle-server
+    urls:
+    - https://github.com/team-settle/helm-charts/releases/download/settle-server-0.1.7/settle-server-0.1.7.tgz
+    version: 0.1.7
+  - apiVersion: v2
     created: "2023-06-07T22:21:31.448544988Z"
     description: A Helm chart for Kubernetes
     digest: 615aaeb1977f8651fb61873139bfdcff50520b65216266d1d8417e865b047f43
@@ -49,4 +57,4 @@ entries:
     urls:
     - https://github.com/team-settle/helm-charts/releases/download/settle-server-0.1.1/settle-server-0.1.1.tgz
     version: 0.1.1
-generated: "2023-06-07T22:21:31.448603288Z"
+generated: "2023-06-13T23:18:15.376037315Z"
