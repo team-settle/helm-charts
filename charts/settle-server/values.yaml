@@ -2,15 +2,17 @@
 # This is a YAML-formatted file.
 # Declare variables to be passed into your templates.
 
-replicaCount: 2
+replicaCount: 1
 
-env: "stg"
+env: ""
+
+# Specy a ConfigMap resource name that has been created separately
+configMap: ""
 
 image:
   repository: nginx
   pullPolicy: IfNotPresent
-  # Overrides the image tag whose default is the chart appVersion.
-  tag: ""
+  tag: latest
 
 imagePullSecrets: []
 nameOverride: ""
@@ -28,7 +30,6 @@ serviceAccount:
 podAnnotations: {}
 
 podSecurityContext: {}
-  # fsGroup: 2000
 
 securityContext: {}
   # capabilities:
@@ -85,8 +86,18 @@ tolerations: []
 affinity: {}
 
 sidekiq:
-  enabled: false
-  replicaCount: 1
+  enabled: true
+  workers:
+    worker:
+      replicaCount: 1
+      command: "worker"
+    critical-worker:
+      replicaCount: 1
+      command: "critical"
+    reports-worker:
+      replicaCount: 1
+      command: "reports"
+
 
 # https://kubernetes.io/docs/tasks/configure-pod-container/configure-liveness-readiness-startup-probes/#define-startup-probes
 startupProbe: {}

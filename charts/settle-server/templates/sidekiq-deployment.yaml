@@ -1,10 +1,12 @@
 {{- if .Values.sidekiq.enabled }}
+{{- range $key, $value := $.Values.sidekiq.workers }}
+{{- with $ }}
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: sidekiq
+  name: {{ $key }}
 spec:
-  replicas: {{ .Values.sidekiq.replicaCount }}
+  replicas: {{ $value.replicaCount }}
   selector:
     matchLabels:
       app: sidekiq
@@ -17,8 +19,10 @@ spec:
       - name: sidekiq
         image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
         imagePullPolicy: Always
-        command: ["bundle", "exec", "sidekiq"]
+        command: {{ $value.command }}
         envFrom:
           - configMapRef:
-              name: {{ .Values.sidekiq.configMap }}
+              name: {{ .Values.configMap }}
+{{- end }}
+{{- end }}
 {{- end }}
