@@ -4,7 +4,7 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: {{ $key }}
+  name: sidekiq-{{ $key }}
 spec:
   replicas: {{ $value.replicaCount }}
   selector:
@@ -15,10 +15,11 @@ spec:
       labels:
         app: sidekiq
     spec:
+      serviceAccountName: sidekiq-{{ $key }}
       containers:
       - name: sidekiq
         image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
-        imagePullPolicy: Always
+        imagePullPolicy: IfNotPresent
         command: {{ $value.command }}
         envFrom:
           - configMapRef:
