@@ -17,8 +17,18 @@ spec:
       - name: sidekiq
         image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
         imagePullPolicy: Always
-        command: ["bundle", "exec", "sidekiq"]
-        # envFrom:
-        #   - configMapRef:
-        #       name: {{ .Values.sidekiq.configMap }}
+        command: [ "bundle" ]
+        args:
+          - "exec"
+          - "sidekiq"
+          - "-C"
+          - "config/sidekiq/common.yml*/"
+        env:
+          - name: REDIS_HOST
+            value: redis
+          - name: REDIS_ADDRESS
+            value: redis:6379
+        envFrom:
+           - configMapRef:
+               name: settle-server-config
 {{- end }}
