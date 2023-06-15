@@ -1,42 +1,25 @@
-# Default values for test-chart.
-# This is a YAML-formatted file.
-# Declare variables to be passed into your templates.
+# Default values for this chart.
 
-replicaCount: 2
+nameOverride: ""
+fullnameOverride: ""
 
 env: "stg"
+
+# Minimum number of pods to deploy
+replicaCount: 1
+
+# Specify a ConfigMap resource name that has been created separately
+configMap: ""
 
 image:
   repository: nginx
   pullPolicy: IfNotPresent
-  # Overrides the image tag whose default is the chart appVersion.
-  tag: ""
-
-imagePullSecrets: []
-nameOverride: ""
-fullnameOverride: ""
+  tag: latest
 
 serviceAccount:
-  # Specifies whether a service account should be created
   create: true
-  # Annotations to add to the service account
-  annotations: {}
-  # The name of the service account to use.
-  # If not set and create is true, a name is generated using the fullname template
-  name: ""
-
-podAnnotations: {}
-
-podSecurityContext: {}
-  # fsGroup: 2000
-
-securityContext: {}
-  # capabilities:
-  #   drop:
-  #   - ALL
-  # readOnlyRootFilesystem: true
-  # runAsNonRoot: true
-  # runAsUser: 1000
+  # annotations: {}
+  # name: ""
 
 service:
   type: ClusterIP
@@ -45,25 +28,19 @@ service:
 
 ingress:
   enabled: false
-  className: ""
-  annotations: {}
-    # kubernetes.io/ingress.class: nginx
-    # kubernetes.io/tls-acme: "true"
-  hosts:
-    - host: chart-example.local
-      paths:
-        - path: /
-          pathType: ImplementationSpecific
-  tls: []
+  # className: ""
+  # annotations: {}
+  # hosts:
+  #   - host: chart-example.local
+  #     paths:
+  #       - path: /
+  #         pathType: ImplementationSpecific
+  # tls: []
   #  - secretName: chart-example-tls
   #    hosts:
   #      - chart-example.local
 
 resources: {}
-  # We usually recommend not to specify default resources and to leave this as a conscious
-  # choice for the user. This also increases chances charts run on environments with little
-  # resources, such as Minikube. If you do want to specify resources, uncomment the following
-  # lines, adjust them as necessary, and remove the curly braces after 'resources:'.
   # limits:
   #   cpu: 100m
   #   memory: 128Mi
@@ -71,22 +48,25 @@ resources: {}
   #   cpu: 100m
   #   memory: 128Mi
 
-autoscaling:
-  enabled: false
-  minReplicas: 1
-  maxReplicas: 20
-  targetCPUUtilizationPercentage: 80
-  # targetMemoryUtilizationPercentage: 80
-
-nodeSelector: {}
-
-tolerations: []
-
-affinity: {}
-
 sidekiq:
   enabled: false
-  replicaCount: 1
+  # workers:
+  #   worker:
+  #     replicaCount: 1
+  #     command: bundle
+  #     args:
+  #       - "exec"
+  #       - "sidekiq"
+  #       - "-C"
+  #       - "config/sidekiq/common.yml"
+  #   critical-worker:
+  #     replicaCount: 1
+  #     command: bundle
+  #     args:
+  #       - "exec"
+  #       - "sidekiq"
+  #       - "-C"
+  #       - "config/sidekiq/production/critical.yml"
 
 # https://kubernetes.io/docs/tasks/configure-pod-container/configure-liveness-readiness-startup-probes/#define-startup-probes
 startupProbe: {}
@@ -108,3 +88,24 @@ lifecycle: {}
   #         bin/rails db:migrate && if ! bundle exec rails runner 'exit(Admin.any?)'; then
   #           bundle exec rails db:seed;
   #         fi
+
+autoscaling:
+  enabled: false
+  # minReplicas: 1
+  # maxReplicas: 20
+  # targetCPUUtilizationPercentage: 80
+  # targetMemoryUtilizationPercentage: 80
+
+imagePullSecrets: []
+
+podAnnotations: {}
+
+podSecurityContext: {}
+
+securityContext: {}
+
+nodeSelector: {}
+
+tolerations: []
+
+affinity: {}

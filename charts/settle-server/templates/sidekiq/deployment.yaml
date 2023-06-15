@@ -1,0 +1,34 @@
+{{- if .Values.sidekiq.enabled }}
+{{- range $key, $value := $.Values.sidekiq.workers }}
+{{- with $ }}
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: sidekiq-{{ $key }}
+spec:
+  replicas: {{ $value.replicaCount }}
+  selector:
+    matchLabels:
+      app: sidekiq
+  template:
+    metadata:
+      labels:
+        app: sidekiq
+    spec:
+      serviceAccountName: sidekiq-{{ $key }}
+      containers:
+      - name: sidekiq
+        image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
+        imagePullPolicy: IfNotPresent
+        command: ["{{ $value.command }}"]
+        args:
+          {{- range $value.args }}
+          - "{{ . }}"
+          {{- end }}
+        envFrom:
+          - configMapRef:
+              name: {{ .Values.configMap }}
+{{- end }}
+{{- end }}
+{{- end }}
+
