@@ -22,7 +22,7 @@ spec:
           - "exec"
           - "sidekiq"
           - "-C"
-          - "config/sidekiq/common.yml*/"
+          - "config/sidekiq/common.yml"
         env:
           - name: REDIS_HOST
             value: redis
