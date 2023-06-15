@@ -20,10 +20,15 @@ spec:
       - name: sidekiq
         image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
         imagePullPolicy: IfNotPresent
-        command: {{ $value.command }}
+        command: ["{{ $value.command }}"]
+        args:
+          {{- range $value.args }}
+          - "{{ . }}"
+          {{- end }}
         envFrom:
           - configMapRef:
               name: {{ .Values.configMap }}
 {{- end }}
 {{- end }}
 {{- end }}
+
