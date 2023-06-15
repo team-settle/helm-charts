@@ -1,6 +1,7 @@
 {{- if .Values.sidekiq.enabled }}
 {{- range $key, $value := $.Values.sidekiq.workers }}
 {{- with $ }}
+---
 apiVersion: apps/v1
 kind: Deployment
 metadata:
