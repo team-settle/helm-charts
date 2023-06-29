@@ -69,7 +69,7 @@ sidekiq:
   #       - "config/sidekiq/production/critical.yml"
 
 # https://kubernetes.io/docs/tasks/configure-pod-container/configure-liveness-readiness-startup-probes/#define-startup-probes
-startupProbe: {}
+# startupProbe: {}
   # httpGet:
   #   path: /admins/sign_in
   #   port: 8080
