@@ -8,8 +8,9 @@ env: "stg"
 # Minimum number of pods to deploy
 replicaCount: 1
 
-# Specify a ConfigMap resource name that has been created separately
+# Specify a ConfigMap and/or Secret resource that has been created separately
 configMap: ""
+secretMap: ""
 
 image:
   repository: nginx
