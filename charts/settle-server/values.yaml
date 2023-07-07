@@ -99,6 +99,8 @@ autoscaling:
 
 imagePullSecrets: []
 
+initContainers: []
+
 podAnnotations: {}
 
 podSecurityContext: {}
