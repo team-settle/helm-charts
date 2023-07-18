@@ -51,6 +51,10 @@ resources: {}
 
 sidekiq:
   enabled: false
+  resources: {}
+  nodeSelector: {}
+  tolerations: []
+  affinity: {}
   # workers:
   #   worker:
   #     replicaCount: 1

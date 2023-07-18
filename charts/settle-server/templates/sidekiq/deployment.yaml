@@ -17,19 +17,33 @@ spec:
         app: sidekiq
     spec:
       containers:
-      - name: sidekiq
-        image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
-        imagePullPolicy: IfNotPresent
-        command: ["{{ $value.command }}"]
-        args:
-          {{- range $value.args }}
-          - "{{ . }}"
-          {{- end }}
-        envFrom:
-        - configMapRef:
-            name: {{ .Values.configMap }}
-        - secretRef:
-            name: {{ .Values.secretMap }}
+        - name: sidekiq
+          image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
+          imagePullPolicy: IfNotPresent
+          command: ["{{ $value.command }}"]
+          args:
+            {{- range $value.args }}
+            - "{{ . }}"
+            {{- end }}
+          envFrom:
+          - configMapRef:
+              name: {{ .Values.configMap }}
+          - secretRef:
+              name: {{ .Values.secretMap }}
+          resources:
+            {{- toYaml .Values.sidekiq.resources | nindent 12 }}
+      {{- with .Values.sidekiq.nodeSelector }}
+      nodeSelector:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .Values.sidekiq.affinity }}
+      affinity:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .Values.sidekiq.tolerations }}
+      tolerations:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
 {{- end }}
 {{- end }}
 {{- end }}
