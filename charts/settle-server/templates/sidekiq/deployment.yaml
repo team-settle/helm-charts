@@ -20,16 +20,16 @@ spec:
         - name: sidekiq
           image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
           imagePullPolicy: IfNotPresent
-          command: ["{{ $value.command }}"]
+          command: [ "{{ $value.command }}" ]
           args:
             {{- range $value.args }}
             - "{{ . }}"
             {{- end }}
           envFrom:
-          - configMapRef:
-              name: {{ .Values.configMap }}
-          - secretRef:
-              name: {{ .Values.secretMap }}
+            - configMapRef:
+                name: {{ .Values.configMap }}
+            - secretRef:
+                name: {{ .Values.secretMap }}
           resources:
             {{- toYaml .Values.sidekiq.resources | nindent 12 }}
       {{- with .Values.sidekiq.nodeSelector }}

@@ -41,7 +41,7 @@ ingress:
   #    hosts:
   #      - chart-example.local
 
-resources: {}
+resources: { }
   # limits:
   #   cpu: 100m
   #   memory: 128Mi
@@ -51,10 +51,10 @@ resources: {}
 
 sidekiq:
   enabled: false
-  resources: {}
-  nodeSelector: {}
-  tolerations: []
-  affinity: {}
+  resources: { }
+  nodeSelector: { }
+  tolerations: [ ]
+  affinity: { }
   # workers:
   #   worker:
   #     replicaCount: 1
@@ -73,8 +73,8 @@ sidekiq:
   #       - "-C"
   #       - "config/sidekiq/production/critical.yml"
 
-# https://kubernetes.io/docs/tasks/configure-pod-container/configure-liveness-readiness-startup-probes/#define-startup-probes
-# startupProbe: {}
+  # https://kubernetes.io/docs/tasks/configure-pod-container/configure-liveness-readiness-startup-probes/#define-startup-probes
+  # startupProbe: {}
   # httpGet:
   #   path: /admins/sign_in
   #   port: 8080
@@ -83,7 +83,7 @@ sidekiq:
   # failureThreshold: 10
 
 # https://kubernetes.io/docs/tasks/configure-pod-container/attach-handler-lifecycle-event/
-lifecycle: {}
+lifecycle: { }
   # postStart:
   #   exec:
   #     command:
@@ -101,18 +101,18 @@ autoscaling:
   # targetCPUUtilizationPercentage: 80
   # targetMemoryUtilizationPercentage: 80
 
-imagePullSecrets: []
+imagePullSecrets: [ ]
 
-initContainers: []
+initContainers: [ ]
 
-podAnnotations: {}
+podAnnotations: { }
 
-podSecurityContext: {}
+podSecurityContext: { }
 
-securityContext: {}
+securityContext: { }
 
-nodeSelector: {}
+nodeSelector: { }
 
-tolerations: []
+tolerations: [ ]
 
-affinity: {}
+affinity: { }
